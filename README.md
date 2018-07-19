@@ -12,7 +12,7 @@
 
 如下图设置：
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/env.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/env.png)
 
 
 
@@ -20,13 +20,13 @@
 
 管理员权限启动CMD命令行窗口，安装pip包：
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/pip.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/pip.png)
 
 ### 1.3 配置pip环境变量
 
 将pip.exe 所在目录添加至Windows 环境变量，如下图：
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/pipEnv.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/pipEnv.png)
 
 ### 1.4 安装第三方类库
 
@@ -34,11 +34,11 @@
 
 在模块的安装中，机器需要连接Internet，或者事先下载这些包，手动安装。
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/pysmb.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/pysmb.png)
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/oss2.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/oss2.png)
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/paramiko.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/paramiko.png)
 
  
 
@@ -52,7 +52,7 @@
 
 此工具用于创建原始矢量切片包，区别于ArcGIS Pro中自带的创建矢量切片包工具，此工具生产的矢量切片包中额外包含了切片方案和切片索引，这个生产和打包解包过程自动化完成。 这些随包携带的辅助文件可以确保将来局部更新矢量切片的时候，切片方案一致。并且在这个工具中，可以直接对最大节点数进行控制。
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/CreateAdvVTPK.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/CreateAdvVTPK.png)
 
  
 
@@ -62,7 +62,7 @@
 
  
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/CreatePartVTPK.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/CreatePartVTPK.png)
 
 ### 3. Update Vector Tile Package
 
@@ -70,7 +70,7 @@
 
  
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/UpdateVTPK.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/UpdateVTPK.png)
 
  
 
@@ -80,7 +80,7 @@
 
 需要用户提供矢量切片服务的URL及Server的账户信息以及Server主机的名称与账户信息即可自动实现更新。并且服务无需重启或任何额外配置，服务无间断自动更新。
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/UpdateVTS.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/UpdateVTS.png)
 
  
 
@@ -88,7 +88,7 @@
 
 此工具用于使用局部切片包更新阿里云矢量切片在线服务。
 
-![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/UpdateVTOSS.png)
+![img](https://github.com/makeling/PartiallyUpateArcGISVectorTilesTools/images/UpdateVTOSS.png)
 
 
 
