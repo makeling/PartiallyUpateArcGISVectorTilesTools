@@ -1,6 +1,11 @@
 # _*_ coding: utf-8 _*_
-__author__ = 'makeling'
 # !/usr/bin/python
+#
+# @Version : 1.0
+# @Time    : 2017_12_07
+# @Author  : ma_keling
+# @File    : updateVectorTileOSS.py
+#
 
 
 import os

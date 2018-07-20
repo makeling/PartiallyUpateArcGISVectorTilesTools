@@ -1,6 +1,11 @@
-# _*_ coding: Unicode _*_
-__author__ = 'makeling'
+﻿# _*_ coding: utf-8 _*_
 # !/usr/bin/python
+#
+# @Version : 1.0
+# @Time    : 2017_12_07
+# @Author  : ma_keling
+# @File    : updateVectorTilePackage.py
+#
 
 
 import os
