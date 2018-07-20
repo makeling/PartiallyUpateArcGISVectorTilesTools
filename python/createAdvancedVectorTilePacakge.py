@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-__author__ = 'mu_xiaoyan'
 # !/usr/bin/python
-# Version 3.0
-# What's New in 3.0 ?'
-# Package the scheme file and Index polygon to the vtpk automatically.
+__author__ = 'mu_xiaoyan'
+# Version     : 1.0
+# Update Time : 2018-7-20
+# Change Log  :
+##     1. Replace arcpy.AddMessage() with arcpy.AddError() so to let the tool throw an exception automatically.
+##     2. Optimized Error handling mechanism in Function createVtpkIndexAndPackage()
+##     3. Fixed wrong error text during to old Error Handling logic.
+
 
 import arcpy
 import os
@@ -27,7 +31,7 @@ def GenerateVtpkTilingScheme(in_map,tileScheme):
         arcpy.AddMessage("tile scheme - ready.")
         return tileScheme
     except:
-        arcpy.AddMessage("input map for tiling scheme invalid.")
+        arcpy.AddError("input map for tiling scheme invalid.")
 
 # Modify Scheme File to Avoid the tile_Origin Specification Bug of the Pro Tool
 def modifyTilingSchemeFile(tileScheme):
@@ -42,7 +46,7 @@ def modifyTilingSchemeFile(tileScheme):
         f.close()
         return True
     except:
-        arcpy.AddMessage("tile scheme XML file does not exist.")
+        arcpy.AddError("tile scheme XML file does not exist.")
 
 # Create Vector Tile Index and then Create Vector Tile Package
 def createVtpkIndexAndPackage(in_map,service_type,tileScheme,vertex_count,indexPolygon,outVtpk):
@@ -65,8 +69,23 @@ def createVtpkIndexAndPackage(in_map,service_type,tileScheme,vertex_count,indexP
                                                  tags=None)
         arcpy.AddMessage("Pro standard tile package - ready!")
         return outVtpk
-    except:
-        arcpy.AddMessage("input map for packaging invalid. Check the coordinate system of the input map.")
+    # Update at 2018-7-20, optimized Error handling mechanism
+    # Previous Code:
+    # except:
+    #   arcpy.AddError("input map for packaging invalid. Check the coordinate system of the input map.")
+    except arcpy.ExecuteError:
+        severity = arcpy.GetMaxSeverity()
+        if severity == 2:
+            # If the tool returned an error
+            arcpy.AddError("Error occurred \n{0}".format(arcpy.GetMessages(2)))
+        elif severity == 1:
+            # If the tool returned no errors, but returned a warning
+            arcpy.AddWarning("Warning raised \n{0}".format(arcpy.GetMessages(1)))
+        else:
+            # If the tool did not return an error or a warning
+            arcpy.AddMessage(arcpy.GetMessages())
+
+
 
 # Append the tiling scheme and index polygon to the standard vtpk
 def add_to_zip(original_zip, newfolder):
@@ -85,7 +104,7 @@ def add_to_zip(original_zip, newfolder):
         fp.close()
         return True
     except:
-        print("path or folderName not exist.")
+        arcpy.AddError("path or folderName not exist.")
 
 # Clear the scratch data
 def delete_zip_folder(delete_path):
