@@ -1,11 +1,11 @@
 # _*_ coding: utf-8 _*_
 # !/usr/bin/python
 __author__ = 'ma_keling'
-# Version       : 1.0
+# Version       : 1.1.0
 # Start Time    : 2017-12-07
 # Update Time   : 2018-7-20
 # Change Log    :
-##    1. # Update the path of vector tile cache, adapt to the new vtpk folder structures.
+##
 
 import os
 import sys
@@ -104,14 +104,8 @@ def get_local_tile_path(newPartVtpkPath):
     # for mac path
     # tilePath = extractFolder + '/p12/tile'
 
-    # update at 2018-7-20，adapt to the new vtpk folder structures.
     # for windows path
     tilePath = os.path.join(extractFolder, 'p12\\tile')
-
-
-    #Applies to versions prior to pro2.2
-    # for windows path
-    # tilePath = os.path.join(extractFolder, 'p12\\tile')
     print("local new part tile path:", tilePath)
     return tilePath
 
