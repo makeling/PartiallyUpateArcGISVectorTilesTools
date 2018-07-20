@@ -79,14 +79,14 @@ def submit_request(url,params,item=""):
             # arcpy.AddMessage("response:"+str(last_result))
             return elapse_time,last_result
     except :
-        print("request failed")
+        arcpy.AddError("request failed")
         return err_flag
 
 # assert response json
 def assertJsonSuccess(data):
     obj = json.loads(data)
     if 'status' in obj and obj['status'] == "error":
-        print('Error: JSON object returns an error.' + str(obj))
+        arcpy.AddError('Error: JSON object returns an error.' + str(obj))
         sys.exit(False)
     else:
         return True
@@ -118,7 +118,7 @@ def connect_remote_linux_path(hostname, username, password, filepath, cache_path
         client.close()
         return True
     except:
-        print("upload bundle failed!")
+        arcpy.AddError("upload bundle failed!")
         return False
 
 # connect_remote_win_path(hostname,username,password,filepath,cache_path)
@@ -189,7 +189,7 @@ def connect_remote_win_path(hostname,username,password,filepath,cache_path):
             conn.close()
             return True
         except:
-            print("upload failed! Maybe there is no any tiles in the dir: "+filepath)
+            arcpy.AddError("upload failed! Maybe there is no any tiles in the dir: "+filepath)
             conn.close()
             return False
     except:
