@@ -85,7 +85,7 @@ def add_to_zip(original_zip, newfolder):
         fp.close()
         return True
     except:
-        print("path or folderName not exist.")
+        arcpy.AddError("path or folderName not exist.")
 
 # Clear the scratch data
 def delete_zip_folder(delete_path):
