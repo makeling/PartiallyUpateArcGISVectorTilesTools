@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/python
 __author__ = 'mu_xiaoyan'
-# Version     : 1.0
+# Version     : 1.1.0
 # Update Time : 2018-7-20
 # Change Log  :
 ##     1. Replace arcpy.AddMessage() with arcpy.AddError() so to let the tool throw an exception automatically.

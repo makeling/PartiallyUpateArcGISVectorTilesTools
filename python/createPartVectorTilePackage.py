@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
-__author__ = 'mu_xiaoyan'
 # !/usr/bin/python
-# Version 3.0
-# What's New in version 3.0 ?
-# Automatically get the aux files from the original advanced vtpk. then generate the delta new part vtpk.
+__author__ = 'mu_xiaoyan'
+# Version     : 1.1.0
+# Update Time : 2018-7-20
+# Change Log  :
+##      1. Repalced print() with arcpy.AddError() to make the tool more informational.
+##      2. Added error reporting when the partial vector tile index has no feature.
+##      3. Optimized Error handling mechanism in Function create_partial_vtpk()
+##      4. Added LOD user defined parameter to this Tool and Updated tool UI
+##      5. Added timeStamp to the name of the new partial index polygons to keep the name unique.
 
 import arcpy
 import os
@@ -23,10 +28,10 @@ def unzip(newPartZipPath):
             file_zip.extract(file, extractFolder)
         file_zip.close()
         os.remove(newPartZipPath)
-        print("unzip succeed!")
+        #arcpy.AddMessage("unzip succeed!")
         return extractFolder
     except:
-        print("unzip failed, please provde a validates path")
+        arcpy.AddError("unzip failed, please provde a validates path")
         return ""
 
 # Analyzing Original vtpk file to get the tiling scheme and index polygon and also get the service type
@@ -59,32 +64,57 @@ def analysis_original_vtpk(origin_vtpk_path):
         aux_paras = [index_polygon, tile_scheme, service_type,temp_workspace]
         return aux_paras
     except:
-        arcpy.AddMessage("Original vtpk does not exist.")
+        arcpy.AddError("Original vtpk does not exist.")
 
 # Create Partial VTPK in AOI
 def create_partial_vtpk(workspace, index_polygon, AOI, in_map, LOD, out_part_vtpk, service_type, tile_scheme):
     arcpy.AddMessage(service_type)
     arcpy.env.workspace = workspace
     arcpy.AddMessage("Current workspace: {0}".format(arcpy.env.workspace))
-    AOI_lyr = arcpy.MakeFeatureLayer_management(AOI, "AOI_temp_lyr")
+    AOI_lyr = arcpy.MakeFeatureLayer_management(AOI, "AOI_lyr")
     IndexPolygon_lyr = arcpy.MakeFeatureLayer_management(index_polygon, "IndexPolygon_lyr")
+    # Finding indexed polygons overlaped AOI
     arcpy.SelectLayerByLocation_management(IndexPolygon_lyr, 'intersect', AOI_lyr)
-    # arcpy.AddMessage("Start LOD level: {0}".format(LOD))
-    arcpy.SelectLayerByAttribute_management(IndexPolygon_lyr, 'SUBSET_SELECTION', str(' "LOD" > ' + str(LOD)))
-    arcpy.CopyFeatures_management(IndexPolygon_lyr, 'NewIndex.shp')
-    arcpy.AddMessage('New index layer has been generated.')
+    # Finding indexed polygons whose LOD not lower than specified
+    arcpy.SelectLayerByAttribute_management(IndexPolygon_lyr, 'SUBSET_SELECTION', str(' "LOD" >= ' + str(LOD)))
+    # Update at 2018-7-20
+    # Added timeStamp to the name of the new partial index polygons.
+    timeStamp = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
+    partialIndex = 'PartialIndex_'+str(timeStamp)+'.shp'
+    arcpy.CopyFeatures_management(IndexPolygon_lyr, partialIndex)
     IndexPolygon_lyr.visible = False
     AOI_lyr.visible = False
     try:
-        arcpy.CreateVectorTilePackage_management(in_map=in_map,
-                                                 output_file=out_part_vtpk,
-                                                 service_type=service_type,
-                                                 tiling_scheme=tile_scheme,
-                                                 tile_structure="INDEXED",
-                                                 index_polygons='NewIndex.shp')
-    except Exception as err:
-        arcpy.AddError(err)
-        print(err)
+        # Update at 2018-7-20
+        # Added error reporting when the partial vector tile index has no feature.
+        flag = arcpy.GetCount_management(partialIndex)
+        arcpy.AddMessage(partialIndex+" feature counts: "+str(flag[0]))
+        if int(flag[0]) > 0:
+            arcpy.AddMessage('New index layer has been generated.')
+            arcpy.CreateVectorTilePackage_management(in_map=in_map,
+                                                     output_file=out_part_vtpk,
+                                                     service_type=service_type,
+                                                     tiling_scheme=tile_scheme,
+                                                     tile_structure="INDEXED",
+                                                     index_polygons=partialIndex)
+        else:
+            arcpy.AddError("The LOD value is too large. Try to specify a smaller one.")
+
+    # Update at 2018-7-20, optimized Error handling mechanism
+    # Previous Code:
+    ## except Exception as err:
+    ##     arcpy.AddError(err)
+    except arcpy.ExecuteError:
+        severity = arcpy.GetMaxSeverity()
+        if severity == 2:
+            # If the tool returned an error
+            arcpy.AddError("Error occurred \n{0}".format(arcpy.GetMessages(2)))
+        elif severity == 1:
+            # If the tool returned no errors, but returned a warning
+            arcpy.AddWarning("Warning raised \n{0}".format(arcpy.GetMessages(1)))
+        else:
+            # If the tool did not return an error or a warning
+            arcpy.AddMessage(arcpy.GetMessages())
     # arcpy.Delete_management('NewIndex.shp')
     return True
 
@@ -105,18 +135,21 @@ def main(argv=None):
     out_part_vtpk = arcpy.GetParameterAsText(3)
     arcpy.AddMessage("New part vtpk : {0}.".format(out_part_vtpk))
 
-    execute(in_map, AOI, origin_vtpk, out_part_vtpk)
-
-def execute(in_map, AOI, origin_vtpk_path, out_part_vtpk):
-    workspace = os.path.dirname(out_part_vtpk)
+    # Specify the LOD value, from which the vtpk begins to build
     # LOD = calculate_LOD()
-    LOD = 5
+    LOD = arcpy.GetParameterAsText(4)
+    arcpy.AddMessage("LOD - beginning tile level: {0}.".format(LOD))
+
+    execute(in_map, AOI, origin_vtpk, out_part_vtpk,LOD)
+
+def execute(in_map, AOI, origin_vtpk_path, out_part_vtpk,LOD):
+    workspace = os.path.dirname(out_part_vtpk)
     aux_paras = analysis_original_vtpk(origin_vtpk_path)
     index_polygon = aux_paras[0]
     tile_scheme = aux_paras[1]
     service_type = aux_paras[2]
     temp_workspace = aux_paras[3]
-    # arcpy.AddMessage(index_polygon + "/n"+tile_scheme+"/n"+service_type)
+    arcpy.AddMessage(index_polygon + "/n"+tile_scheme+"/n"+service_type)
     # Excute create_partial_vtpk function
     create_partial_vtpk(workspace, index_polygon, AOI, in_map, LOD, out_part_vtpk, service_type, tile_scheme)
     if os.path.exists(out_part_vtpk):
