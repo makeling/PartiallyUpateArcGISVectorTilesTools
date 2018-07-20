@@ -2,11 +2,12 @@
 # !/usr/bin/python
 __author__ = 'mu_xiaoyan'
 # Version     : 1.1.0
+# Start Time  : 2017-12-07
 # Update Time : 2018-7-20
 # Change Log  :
-##     1. Replace arcpy.AddMessage() with arcpy.AddError() so to let the tool throw an exception automatically.
-##     2. Optimized Error handling mechanism in Function createVtpkIndexAndPackage()
-##     3. Fixed wrong error text during to old Error Handling logic.
+##      1. Replace arcpy.AddMessage() with arcpy.AddError() so to let the tool throw an exception automatically.
+##      2. Optimized Error handling mechanism in Function createVtpkIndexAndPackage()
+##      3. Fixed wrong error text during to old Error Handling logic.
 
 
 import arcpy

@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ab92094-d5eb-4fc5-b6ba-3c2221fefe50" name="Default" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/python/advancedVectorTilePackage.tbx" afterPath="$PROJECT_DIR$/python/advancedVectorTilePackage.tbx" />
       <change beforePath="$PROJECT_DIR$/python/createAdvancedVectorTilePacakge.py" afterPath="$PROJECT_DIR$/python/createAdvancedVectorTilePacakge.py" />
       <change beforePath="$PROJECT_DIR$/python/createPartVectorTilePackage.py" afterPath="$PROJECT_DIR$/python/createPartVectorTilePackage.py" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/updateVectorTilePackage.py" afterPath="$PROJECT_DIR$/python/updateVectorTilePackage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/updateVectorTileService.py" afterPath="$PROJECT_DIR$/python/updateVectorTileService.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/updateVectorTileforOSS.py" afterPath="$PROJECT_DIR$/python/updateVectorTileforOSS.py" />
+>>>>>>> 137ea50a2b2444a3035f23d241c37f2e796eb822
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,6 +25,7 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="createPartVectorTilePackage.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/createPartVectorTilePackage.py">
@@ -30,6 +38,38 @@
                 <element signature="e#1344#2622#0" expanded="false" />
                 <element signature="e#5411#6282#0" expanded="false" />
                 <element signature="e#6351#6881#0" expanded="false" />
+=======
+    <leaf>
+      <file leaf-file-name="updateVectorTileService.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/python/updateVectorTileService.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3930">
+              <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="updateVectorTileforOSS.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/python/updateVectorTileforOSS.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+              <folding>
+                <element signature="e#256#265#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="updateVectorTilePackage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/python/updateVectorTilePackage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+              <folding>
+                <element signature="e#257#266#0" expanded="true" />
+>>>>>>> 137ea50a2b2444a3035f23d241c37f2e796eb822
               </folding>
             </state>
           </provider>
@@ -44,11 +84,18 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$USER_HOME$/coding/AI workspace/keras_learning_20180709/01_start_20180709.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/python/updateVectorTileService.py" />
         <option value="$PROJECT_DIR$/python/updateVectorTilePackage.py" />
         <option value="$PROJECT_DIR$/python/updateVectorTileforOSS.py" />
         <option value="$PROJECT_DIR$/python/createPartVectorTilePackage.py" />
         <option value="$PROJECT_DIR$/python/createAdvancedVectorTilePacakge.py" />
+=======
+        <option value="$PROJECT_DIR$/python/createAdvancedVectorTilePacakge.py" />
+        <option value="$PROJECT_DIR$/python/updateVectorTilePackage.py" />
+        <option value="$PROJECT_DIR$/python/updateVectorTileforOSS.py" />
+        <option value="$PROJECT_DIR$/python/updateVectorTileService.py" />
+>>>>>>> 137ea50a2b2444a3035f23d241c37f2e796eb822
       </list>
     </option>
   </component>
@@ -75,6 +122,7 @@
     <panes>
       <pane id="ProjectPane">
         <subPane>
+<<<<<<< HEAD
           <expand>
             <path>
               <item name="PartiallyUpateArcGISVectorTilesTools" type="b2602c69:ProjectViewProjectNode" />
@@ -87,6 +135,32 @@
             </path>
           </expand>
           <select />
+=======
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PartiallyUpateArcGISVectorTilesTools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PartiallyUpateArcGISVectorTilesTools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PartiallyUpateArcGISVectorTilesTools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PartiallyUpateArcGISVectorTilesTools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+>>>>>>> 137ea50a2b2444a3035f23d241c37f2e796eb822
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -262,7 +336,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="70" y="-8" width="1858" height="1096" extended-state="6" />
+=======
+    <frame x="0" y="23" width="1279" height="777" extended-state="1" />
+>>>>>>> 137ea50a2b2444a3035f23d241c37f2e796eb822
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16978022" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -298,6 +376,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/python/createPartVectorTilePackage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -320,6 +399,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
+=======
+    <entry file="file://$USER_HOME$/coding/AI workspace/keras_learning_20180709/01_start_20180709.py">
+>>>>>>> 137ea50a2b2444a3035f23d241c37f2e796eb822
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -340,6 +422,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$USER_HOME$/coding/AI workspace/keras_learning_20180709/01_start_20180709.py" />
     <entry file="file://$PROJECT_DIR$/python/updateVectorTileService.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -349,14 +432,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/python/updateVectorTilePackage.py">
+=======
+    <entry file="file://$PROJECT_DIR$/python/createPartVectorTilePackage.py">
+>>>>>>> 137ea50a2b2444a3035f23d241c37f2e796eb822
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="591">
           <caret line="182" column="24" lean-forward="false" selection-start-line="182" selection-start-column="24" selection-end-line="182" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python/updateVectorTileforOSS.py">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="822">
           <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
         </state>
@@ -387,7 +474,39 @@
             <element signature="e#1344#2622#0" expanded="false" />
             <element signature="e#5411#6282#0" expanded="false" />
             <element signature="e#6351#6881#0" expanded="false" />
+=======
+        <state relative-caret-position="-210">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/updateVectorTilePackage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding>
+            <element signature="e#257#266#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/updateVectorTileforOSS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding>
+            <element signature="e#256#265#0" expanded="true" />
+>>>>>>> 137ea50a2b2444a3035f23d241c37f2e796eb822
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/updateVectorTileService.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3930">
+          <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>

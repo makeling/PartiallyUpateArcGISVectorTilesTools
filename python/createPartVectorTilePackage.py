@@ -2,12 +2,13 @@
 # !/usr/bin/python
 __author__ = 'mu_xiaoyan'
 # Version     : 1.1.0
+# Start Time  : 2017-12-07
 # Update Time : 2018-7-20
 # Change Log  :
 ##      1. Repalced print() with arcpy.AddError() to make the tool more informational.
 ##      2. Added error reporting when the partial vector tile index has no feature.
-##      3. Optimized Error handling mechanism in Function create_partial_vtpk()
-##      4. Added LOD user defined parameter to this Tool and Updated tool UI
+##      3. Optimized Error handling mechanism in Function create_partial_vtpk().
+##      4. Added LOD user defined parameter to this Tool and Updated tool UI.
 ##      5. Added timeStamp to the name of the new partial index polygons to keep the name unique.
 
 import arcpy
