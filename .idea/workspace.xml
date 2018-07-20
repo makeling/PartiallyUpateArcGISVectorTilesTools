@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ab92094-d5eb-4fc5-b6ba-3c2221fefe50" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/createAdvancedVectorTilePacakge.py" afterPath="$PROJECT_DIR$/python/createAdvancedVectorTilePacakge.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/updateVectorTilePackage.py" afterPath="$PROJECT_DIR$/python/updateVectorTilePackage.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/updateVectorTileService.py" afterPath="$PROJECT_DIR$/python/updateVectorTileService.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/updateVectorTileforOSS.py" afterPath="$PROJECT_DIR$/python/updateVectorTileforOSS.py" />
@@ -20,33 +20,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="updateVectorTileService.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="updateVectorTileService.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/updateVectorTileService.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1141">
-              <caret line="191" column="26" lean-forward="false" selection-start-line="191" selection-start-column="26" selection-end-line="191" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="updateVectorTilePackage.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/python/updateVectorTilePackage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1695">
-              <caret line="185" column="24" lean-forward="false" selection-start-line="185" selection-start-column="8" selection-end-line="185" selection-end-column="24" />
-              <folding>
-                <element signature="e#153#162#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-210">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="-3930">
+              <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -55,10 +33,22 @@
       <file leaf-file-name="updateVectorTileforOSS.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/updateVectorTileforOSS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="822">
-              <caret line="171" column="22" lean-forward="false" selection-start-line="171" selection-start-column="22" selection-end-line="171" selection-end-column="22" />
+            <state relative-caret-position="30">
+              <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
               <folding>
-                <element signature="e#149#158#0" expanded="true" />
+                <element signature="e#256#265#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="updateVectorTilePackage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/python/updateVectorTilePackage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+              <folding>
+                <element signature="e#257#266#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -73,10 +63,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$USER_HOME$/coding/AI workspace/keras_learning_20180709/01_start_20180709.py" />
-        <option value="$PROJECT_DIR$/python/updateVectorTileService.py" />
         <option value="$PROJECT_DIR$/python/createAdvancedVectorTilePacakge.py" />
         <option value="$PROJECT_DIR$/python/updateVectorTilePackage.py" />
         <option value="$PROJECT_DIR$/python/updateVectorTileforOSS.py" />
+        <option value="$PROJECT_DIR$/python/updateVectorTileService.py" />
       </list>
     </option>
   </component>
@@ -125,20 +115,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="python" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PartiallyUpateArcGISVectorTilesTools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PartiallyUpateArcGISVectorTilesTools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -300,7 +276,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1279" height="777" extended-state="0" />
+    <frame x="0" y="23" width="1279" height="777" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24960254" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -332,14 +308,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-210">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/coding/AI workspace/keras_learning_20180709/01_start_20180709.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -356,14 +324,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python/updateVectorTileService.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1141">
-          <caret line="191" column="26" lean-forward="false" selection-start-line="191" selection-start-column="26" selection-end-line="191" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/python/createPartVectorTilePackage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -374,23 +334,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python/updateVectorTileforOSS.py">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="822">
-          <caret line="171" column="22" lean-forward="false" selection-start-line="171" selection-start-column="22" selection-end-line="171" selection-end-column="22" />
-          <folding>
-            <element signature="e#149#158#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-210">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/python/updateVectorTilePackage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1695">
-          <caret line="185" column="24" lean-forward="false" selection-start-line="185" selection-start-column="8" selection-end-line="185" selection-end-column="24" />
+        <state relative-caret-position="30">
+          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
           <folding>
-            <element signature="e#153#162#0" expanded="true" />
+            <element signature="e#257#266#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/updateVectorTileforOSS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding>
+            <element signature="e#256#265#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/updateVectorTileService.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3930">
+          <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>

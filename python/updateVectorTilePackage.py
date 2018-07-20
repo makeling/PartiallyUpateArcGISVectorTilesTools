@@ -1,12 +1,11 @@
 ﻿# _*_ coding: utf-8 _*_
 # !/usr/bin/python
-#
-# @Version : 1.0
-# @Time    : 2017_12_07
-# @Author  : ma_keling
-# @File    : updateVectorTilePackage.py
-#
-
+__author__ = 'ma_keling'
+# Version       : 1.0
+# Start Time    : 2017-12-07
+# Update Time   : 2018-7-20
+# Change Log    :
+##     1. # Update the path of vector tile cache, adapt to the new vtpk folder structures.
 
 import os
 import zipfile
@@ -117,7 +116,11 @@ def copy_files(workspace,oldvtpath=None, newvtpath=None):
 # return the unzip local tile path include LODs
 def get_tile_path(extract_folder):
     # # for windows path
+    # update at 2018-7-20，adapt to the new vtpk folder structures.
     tilePath = os.path.join(extract_folder, 'p12\\tile')
+
+    # Applies to versions prior to pro2.2
+    # tilePath = os.path.join(extract_folder, 'p12\\tile')
     print("local new part tile path:", tilePath)
     return tilePath
 
