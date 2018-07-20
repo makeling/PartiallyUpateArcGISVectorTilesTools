@@ -1,11 +1,12 @@
 # _*_ coding: utf-8 _*_
 # !/usr/bin/python
-#
-# @Version : 1.0
-# @Time    : 2017_12_07
-# @Author  : ma_keling
-# @File    : updateVectorTileService.py
-#
+__author__ = 'ma_keling'
+# Version       : 1.0
+# Start Time    : 2017-12-07
+# Update Time   : 2018-7-20
+# Change Log    :
+##     1. # Update the path of vector tile cache, adapt to the new vtpk folder structures.
+
 import os
 import sys
 import zipfile
@@ -51,6 +52,7 @@ def main(argv=None):
 
     execute(update_vtpk_path, service_url, ags_username, ags_password, share_hostname,
             share_admin, share_password)
+    
 #common http tools
 #assistant method for submit request
 def submit_request(url,params,item=""):
@@ -345,17 +347,17 @@ def get_local_cache_path(upate_vtpk_path):
     unzip_path = unzip(zip_path)
 
     if unzip_path[:1] == r"/":
-        # 修改于2018-7-20，以适应新的矢量切片包目录。
+        # update at 2018-7-20，adapt to the new vtpk folder structures.
         cache_path = os.path.join(unzip_path, 'p12/tile')
 
-        #pro2.2 版本以下适用代码
+        # Applies to versions prior to pro2.2
         #cache_path = os.path.join(unzip_path,'p12/tile')
     else:
 
-        # 修改于2018-7-20，以适应新的矢量切片包目录。
+        # update at 2018-7-20，adapt to the new vtpk folder structures.
         cache_path = os.path.join(unzip_path, 'p12/tile')
 
-        # pro2.2 版本以下适用代码
+        # Applies to versions prior to pro2.2
         #cache_path = os.path.join(unzip_path, 'p12\\tile')
 
     return cache_path
