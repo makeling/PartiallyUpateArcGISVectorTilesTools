@@ -1,6 +1,11 @@
 # _*_ coding: utf-8 _*_
-__author__ = 'makeling'
 # !/usr/bin/python
+#
+# @Version : 1.0
+# @Time    : 2017_12_07
+# @Author  : ma_keling
+# @File    : updateVectorTileOSS.py
+#
 
 
 import os
@@ -52,7 +57,7 @@ def retype(newPartVtpkPath,newtype):
 
         return newdir
     except:
-        print("retype failed: please provide a validates path")
+        arcpy.AddError("retype failed: please provide a validates path")
 
 #uncompress the .zip file to folder
 def unzip(newPartZipPath):
@@ -67,7 +72,7 @@ def unzip(newPartZipPath):
         print("unzip succeed!")
         return extractFolder
     except:
-        print("unzip failed, please provde a validates path")
+        arcpy.AddError("unzip failed, please provde a validates path")
         return False
 
 def zip_and_retype(newPartZipPath):
@@ -88,7 +93,7 @@ def zip_and_retype(newPartZipPath):
         retype(zipDir,".vtpk")
         return True
     except:
-        print("path or folderName not exit.")
+        arcpy.AddError("path or folderName not exit.")
 
 def delete_zip_folder(newPartZipPath):
     shutil.rmtree(newPartZipPath)
@@ -164,7 +169,7 @@ def execute(newPartVtpkPath, serviceName, access_key_id, access_key_secret, buck
             #delect zip folder
             delete_zip_folder(newPartVtpkPath)
     except:
-        print("execute failed!")
+        arcpy.AddError("execute failed!")
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

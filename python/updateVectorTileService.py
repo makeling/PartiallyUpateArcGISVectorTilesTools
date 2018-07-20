@@ -1,7 +1,11 @@
 # _*_ coding: utf-8 _*_
-__author__ = 'makeling'
 # !/usr/bin/python
-
+#
+# @Version : 1.0
+# @Time    : 2017_12_07
+# @Author  : ma_keling
+# @File    : updateVectorTileService.py
+#
 import os
 import sys
 import zipfile
@@ -75,14 +79,14 @@ def submit_request(url,params,item=""):
             # arcpy.AddMessage("response:"+str(last_result))
             return elapse_time,last_result
     except :
-        print("request failed")
+        arcpy.AddError("request failed")
         return err_flag
 
 # assert response json
 def assertJsonSuccess(data):
     obj = json.loads(data)
     if 'status' in obj and obj['status'] == "error":
-        print('Error: JSON object returns an error.' + str(obj))
+        arcpy.AddError('Error: JSON object returns an error.' + str(obj))
         sys.exit(False)
     else:
         return True
@@ -114,7 +118,7 @@ def connect_remote_linux_path(hostname, username, password, filepath, cache_path
         client.close()
         return True
     except:
-        print("upload bundle failed!")
+        arcpy.AddError("upload bundle failed!")
         return False
 
 # connect_remote_win_path(hostname,username,password,filepath,cache_path)
@@ -185,7 +189,7 @@ def connect_remote_win_path(hostname,username,password,filepath,cache_path):
             conn.close()
             return True
         except:
-            print("upload failed! Maybe there is no any tiles in the dir: "+filepath)
+            arcpy.AddError("upload failed! Maybe there is no any tiles in the dir: "+filepath)
             conn.close()
             return False
     except:
@@ -275,7 +279,7 @@ def retype(newPartVtpkPath,newtype):
 
         return newdir
     except:
-        print("retype failed: please provide a validates path")
+        arcpy.AddError("retype failed: please provide a validates path")
 
 #uncompress the .zip file to folder
 def unzip(newPartZipPath):
@@ -290,7 +294,7 @@ def unzip(newPartZipPath):
         print("unzip succeed!")
         return extractFolder
     except:
-        print("unzip failed, please provde a validates path")
+        arcpy.AddError("unzip failed, please provde a validates path")
         return ""
 
 #zip and retype file
@@ -315,7 +319,7 @@ def zip_and_retype(original_extract_path,new_vtpk_name):
         os.rename(olddir, newdir)
         return True
     except:
-        print("path or folderName not exit.")
+        arcpy.AddError("path or folderName not exit.")
 
 def delete_zip_folder(delete_path):
     shutil.rmtree(delete_path)
@@ -339,10 +343,20 @@ def get_local_cache_path(upate_vtpk_path):
     zip_path = retype(upate_vtpk_path,'.zip')
     print("zip path:", zip_path)
     unzip_path = unzip(zip_path)
+
     if unzip_path[:1] == r"/":
-        cache_path = os.path.join(unzip_path,'p12/tile')
+        # 修改于2018-7-20，以适应新的矢量切片包目录。
+        cache_path = os.path.join(unzip_path, 'p12/tile')
+
+        #pro2.2 版本以下适用代码
+        #cache_path = os.path.join(unzip_path,'p12/tile')
     else:
-        cache_path = os.path.join(unzip_path, 'p12\\tile')
+
+        # 修改于2018-7-20，以适应新的矢量切片包目录。
+        cache_path = os.path.join(unzip_path, 'p12/tile')
+
+        # pro2.2 版本以下适用代码
+        #cache_path = os.path.join(unzip_path, 'p12\\tile')
 
     return cache_path
 

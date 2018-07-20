@@ -1,6 +1,11 @@
-# _*_ coding: Unicode _*_
-__author__ = 'makeling'
+﻿# _*_ coding: utf-8 _*_
 # !/usr/bin/python
+#
+# @Version : 1.0
+# @Time    : 2017_12_07
+# @Author  : ma_keling
+# @File    : updateVectorTilePackage.py
+#
 
 
 import os
@@ -31,11 +36,11 @@ def retype(workspace,newPartVtpkPath,newtype):
         olddir = newPartVtpkPath
         newdir = filename + newtype
         os.rename(olddir, newdir)
-        print("has changed:" + newdir)
+        arcpy.AddMessage("has changed:" + newdir)
         return newdir
     except:
         delete_zip_folder(workspace)
-        print("retype failed: please provide a validates path")
+        arcpy.AddError("retype failed: please provide a validates path")
 
 #uncompress the .zip file to folder
 def unzip(workspace,newPartZipPath):
@@ -51,7 +56,7 @@ def unzip(workspace,newPartZipPath):
         return extractFolder
     except:
         delete_zip_folder(workspace)
-        print("unzip failed, please provide a validates path")
+        arcpy.AddError("unzip failed, please provide a validates path")
         return ""
 
 def zip_and_retype(workspace,original_extract_path,new_vtpk_name):
@@ -76,7 +81,7 @@ def zip_and_retype(workspace,original_extract_path,new_vtpk_name):
         return True
     except:
         delete_zip_folder(workspace)
-        print("path or folderName not exit.")
+        arcpy.AddError("path or folderName not exit.")
 
 def delete_zip_folder(delete_path):
     shutil.rmtree(delete_path)
