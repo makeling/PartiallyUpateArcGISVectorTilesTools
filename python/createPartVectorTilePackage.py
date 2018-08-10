@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/python
 __author__ = 'mu_xiaoyan'
-# Version     : 1.1.0
+# Version     : 2.0.0
 # Start Time  : 2017-12-07
-# Update Time : 2018-7-20
+# Update Time : 2018-8-10
 # Change Log  :
-##      1. Repalced print() with arcpy.AddError() to make the tool more informational.
-##      2. Added error reporting when the partial vector tile index has no feature.
-##      3. Optimized Error handling mechanism in Function create_partial_vtpk().
-##      4. Added LOD user defined parameter to this Tool and Updated tool UI.
-##      5. Added timeStamp to the name of the new partial index polygons to keep the name unique.
+##      Added new logical to calculate affected bundle extent in each level to avoid vector tile lost.
+##      New function - calculate_affected_indexes_layer(AOI,index_polygon)
 
 import arcpy
 import os
@@ -67,92 +64,144 @@ def analysis_original_vtpk(origin_vtpk_path):
     except:
         arcpy.AddError("Original vtpk does not exist.")
 
-# Create Partial VTPK in AOI
-def create_partial_vtpk(workspace, index_polygon, AOI, in_map, LOD, out_part_vtpk, service_type, tile_scheme):
-    arcpy.AddMessage(service_type)
-    arcpy.env.workspace = workspace
-    arcpy.AddMessage("Current workspace: {0}".format(arcpy.env.workspace))
-    AOI_lyr = arcpy.MakeFeatureLayer_management(AOI, "AOI_lyr")
-    IndexPolygon_lyr = arcpy.MakeFeatureLayer_management(index_polygon, "IndexPolygon_lyr")
+# Updated at 2018-8-9
+# Added new function calculating the exact bundle extent in each level of vector tile
+def calculate_affected_indexes_layer(AOI,index_polygon):
     # Finding indexed polygons overlaped AOI
-    arcpy.SelectLayerByLocation_management(IndexPolygon_lyr, 'intersect', AOI_lyr)
-    # Finding indexed polygons whose LOD not lower than specified
-    arcpy.SelectLayerByAttribute_management(IndexPolygon_lyr, 'SUBSET_SELECTION', str(' "LOD" >= ' + str(LOD)))
-    # Update at 2018-7-20
-    # Added timeStamp to the name of the new partial index polygons.
-    timeStamp = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
-    partialIndex = 'PartialIndex_'+str(timeStamp)+'.shp'
-    arcpy.CopyFeatures_management(IndexPolygon_lyr, partialIndex)
-    IndexPolygon_lyr.visible = False
+    affected_indexes_fc = "in_memory/base_affected_indexes"
+    AOI_lyr = arcpy.MakeFeatureLayer_management(AOI, "AOI_lyr")
+    index_polygon_lyr = arcpy.MakeFeatureLayer_management(index_polygon, "index_polygon_lyr")
+    index_polygon_lyr.visible = False
     AOI_lyr.visible = False
-    try:
-        # Update at 2018-7-20
-        # Added error reporting when the partial vector tile index has no feature.
-        flag = arcpy.GetCount_management(partialIndex)
-        arcpy.AddMessage(partialIndex+" feature counts: "+str(flag[0]))
-        if int(flag[0]) > 0:
-            arcpy.AddMessage('New index layer has been generated.')
-            arcpy.CreateVectorTilePackage_management(in_map=in_map,
-                                                     output_file=out_part_vtpk,
-                                                     service_type=service_type,
-                                                     tiling_scheme=tile_scheme,
-                                                     tile_structure="INDEXED",
-                                                     index_polygons=partialIndex)
-        else:
-            arcpy.AddError("The LOD value is too large. Try to specify a smaller one.")
+    arcpy.SelectLayerByLocation_management(index_polygon_lyr, 'INTERSECT', AOI_lyr)
+    arcpy.Statistics_analysis(index_polygon_lyr, "in_memory/statistics_LOD", [["LOD", "MAX"]])
+    statistics_LOD = [row[0] for row in arcpy.da.SearchCursor("in_memory/statistics_LOD", ['MAX_LOD'])]
+    max_lod = statistics_LOD[0]
+    arcpy.AddMessage("- Max affected LOD detected "+str(max_lod))
+    arcpy.CopyFeatures_management(index_polygon_lyr, affected_indexes_fc)
+    arcpy.SelectLayerByAttribute_management(index_polygon_lyr,'CLEAR_SELECTION')
+    base_affected_indexes_lyr = arcpy.MakeFeatureLayer_management(affected_indexes_fc, "base_affected_indexes_lyr")
 
-    # Update at 2018-7-20, optimized Error handling mechanism
-    # Previous Code:
-    ## except Exception as err:
-    ##     arcpy.AddError(err)
-    except arcpy.ExecuteError:
-        severity = arcpy.GetMaxSeverity()
-        if severity == 2:
-            # If the tool returned an error
-            arcpy.AddError("Error occurred \n{0}".format(arcpy.GetMessages(2)))
-        elif severity == 1:
-            # If the tool returned no errors, but returned a warning
-            arcpy.AddWarning("Warning raised \n{0}".format(arcpy.GetMessages(1)))
-        else:
-            # If the tool did not return an error or a warning
-            arcpy.AddMessage(arcpy.GetMessages())
-    # arcpy.Delete_management('NewIndex.shp')
-    return True
+    # Calculating bundle extent in each level
+    timeStamp = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
+    bundle_index_polygons = 'partial_index_polygons_'+str(timeStamp)+'.shp'
+    arcpy.Select_analysis(index_polygon, bundle_index_polygons, '"LOD"<7')
+    arcpy.AddMessage("- Partial vector indexes Level 1-6 Created !")
+    with arcpy.da.SearchCursor(affected_indexes_fc, ['SHAPE@','LOD']) as cursor:
+        for row in cursor:
+            if row[1]<=max_lod and row[1]>=7:
+                bundle_lod = row[1]-7
+                arcpy.SelectLayerByAttribute_management(base_affected_indexes_lyr, 'NEW_SELECTION',
+                                                        '"LOD" = '+str(bundle_lod))
+                arcpy.SelectLayerByAttribute_management(index_polygon_lyr, 'NEW_SELECTION',
+                                                        '"LOD" = ' + str(row[1]))
+                arcpy.SelectLayerByLocation_management(index_polygon_lyr, "INTERSECT", base_affected_indexes_lyr, None,
+                                                       "SUBSET_SELECTION", "NOT_INVERT")
+                arcpy.CopyFeatures_management(index_polygon_lyr, "in_memory/bundle_index_polygon_each_level")
+                arcpy.Append_management(["in_memory/bundle_index_polygon_each_level"], bundle_index_polygons, "TEST")
+                arcpy.AddMessage("- Partial vector indexes Level {0} Created !".format(row[1]))
+
+    return bundle_index_polygons
+
+# Updated at 2018-8-9, Old Function Obsoleted !
+# Create Partial VTPK in AOI
+# def create_partial_vtpk(workspace, bundle_index_polygons, in_map, out_part_vtpk, service_type, tile_scheme):
+#     arcpy.AddMessage(service_type)
+#     arcpy.env.workspace = workspace
+#     arcpy.AddMessage("Current workspace: {0}".format(arcpy.env.workspace))
+#     # Updated at 2018-8-9 , obsoleted the followings
+#     # AOI_lyr = arcpy.MakeFeatureLayer_management(AOI, "AOI_lyr")
+#     # IndexPolygon_lyr = arcpy.MakeFeatureLayer_management(index_polygon, "IndexPolygon_lyr")
+#     # # Finding indexed polygons overlaped AOI
+#     # arcpy.SelectLayerByLocation_management(IndexPolygon_lyr, 'intersect', AOI_lyr)
+#     # # Finding indexed polygons whose LOD not lower than specified
+#     # arcpy.SelectLayerByAttribute_management(IndexPolygon_lyr, 'SUBSET_SELECTION', str(' "LOD" >= ' + str(LOD)))
+#     # Update at 2018-7-20
+#     # Added timeStamp to the name of the new partial index polygons.
+#     # timeStamp = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
+#     # partialIndex = 'PartialIndex_'+str(timeStamp)+'.shp'
+#     # arcpy.CopyFeatures_management(IndexPolygon_lyr, partialIndex)
+#     # IndexPolygon_lyr.visible = False
+#     # AOI_lyr.visible = False
+#     try:
+#         # # Update at 2018-7-20
+#         # # Added error reporting when the partial vector tile index has no feature.
+#         # flag = arcpy.GetCount_management(partialIndex)
+#         # arcpy.AddMessage(partialIndex+" feature counts: "+str(flag[0]))
+#         # if int(flag[0]) > 0:
+#         #     arcpy.AddMessage('New index layer has been generated.')
+#         #     arcpy.CreateVectorTilePackage_management(in_map=in_map,
+#         #                                              output_file=out_part_vtpk,
+#         #                                              service_type=service_type,
+#         #                                              tiling_scheme=tile_scheme,
+#         #                                              tile_structure="INDEXED",
+#         #                                              index_polygons=partialIndex)
+#         # else:
+#         #     arcpy.AddError("The LOD value is too large. Try to specify a smaller one.")
+#
+#
+#     # Update at 2018-7-20, optimized Error handling mechanism
+#     # Previous Code:
+#     ## except Exception as err:
+#     ##     arcpy.AddError(err)
+#     except arcpy.ExecuteError:
+#         severity = arcpy.GetMaxSeverity()
+#         if severity == 2:
+#             # If the tool returned an error
+#             arcpy.AddError("Error occurred \n{0}".format(arcpy.GetMessages(2)))
+#         elif severity == 1:
+#             # If the tool returned no errors, but returned a warning
+#             arcpy.AddWarning("Warning raised \n{0}".format(arcpy.GetMessages(1)))
+#         else:
+#             # If the tool did not return an error or a warning
+#             arcpy.AddMessage(arcpy.GetMessages())
+#     # arcpy.Delete_management('NewIndex.shp')
+#     return True
 
 def main(argv=None):
     # Input map in the current project
     in_map = arcpy.GetParameterAsText(0)
-    arcpy.AddMessage("Input map : {0}.".format(in_map))
+    arcpy.AddMessage("# Input map : {0}.".format(in_map))
 
     # Specify the area where the delta new part vtpk need to be created
     AOI = arcpy.GetParameterAsText(1)
-    arcpy.AddMessage("AOI : {0}.".format(AOI))
+    arcpy.AddMessage("# AOI : {0}.".format(AOI))
 
     # Choose the existing original adv vtpk
     origin_vtpk = arcpy.GetParameterAsText(2)
-    arcpy.AddMessage("Original vtpk : {0}.".format(origin_vtpk))
+    arcpy.AddMessage("# Original vtpk : {0}.".format(origin_vtpk))
 
     # Specify name and workspace for new part vtpk
     out_part_vtpk = arcpy.GetParameterAsText(3)
-    arcpy.AddMessage("New part vtpk : {0}.".format(out_part_vtpk))
+    arcpy.AddMessage("# New part vtpk : {0}.".format(out_part_vtpk))
 
-    # Specify the LOD value, from which the vtpk begins to build
-    # LOD = calculate_LOD()
-    LOD = arcpy.GetParameterAsText(4)
-    arcpy.AddMessage("LOD - beginning tile level: {0}.".format(LOD))
+    execute(in_map, AOI, origin_vtpk, out_part_vtpk)
 
-    execute(in_map, AOI, origin_vtpk, out_part_vtpk,LOD)
 
-def execute(in_map, AOI, origin_vtpk_path, out_part_vtpk,LOD):
-    workspace = os.path.dirname(out_part_vtpk)
+
+# Update 2018-8-10, Calling the new function
+# calculating the exact bundle extent in each level of vector tile
+def execute(in_map, AOI, origin_vtpk_path, out_part_vtpk):
+    arcpy.env.workspace = os.path.dirname(out_part_vtpk)
+    # analyzing original_vtpk to get the scheme and index polygon feature class
     aux_paras = analysis_original_vtpk(origin_vtpk_path)
     index_polygon = aux_paras[0]
     tile_scheme = aux_paras[1]
     service_type = aux_paras[2]
     temp_workspace = aux_paras[3]
-    arcpy.AddMessage(index_polygon + "/n"+tile_scheme+"/n"+service_type)
-    # Excute create_partial_vtpk function
-    create_partial_vtpk(workspace, index_polygon, AOI, in_map, LOD, out_part_vtpk, service_type, tile_scheme)
+    arcpy.AddMessage("Analyzing origin vtpk succesfully! "
+                     +"\n - "+index_polygon+"\n - "+tile_scheme+"\n - "+service_type)
+    # Calculating affected bundle indexes
+    bundle_index_polygons = calculate_affected_indexes_layer(AOI, index_polygon)
+    arcpy.AddMessage("# Affected exactly index polygons created!  ")
+    arcpy.AddMessage("# Starting creating partial vector tiles ...  ")
+    arcpy.CreateVectorTilePackage_management(in_map=in_map,
+                                             output_file=out_part_vtpk,
+                                             service_type=service_type,
+                                             tiling_scheme=tile_scheme,
+                                             tile_structure="INDEXED",
+                                             index_polygons=bundle_index_polygons)
+    arcpy.AddMessage("# Partial vector tiles created!  ")
     if os.path.exists(out_part_vtpk):
         shutil.rmtree(temp_workspace)
 
