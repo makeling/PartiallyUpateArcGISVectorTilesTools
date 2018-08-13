@@ -9,7 +9,7 @@ __author__ = 'mu_xiaoyan'
 ##      New function - calculate_affected_indexes_layer(AOI,index_polygon)
 ##      Perfectly maintained spatial relationship internel
 ##      Absoleted parameter LOD, which now is calculated automatically
-##      Automatically removed intermidiate data and workspace
+##      Automatically removed intermediate data and workspace
 
 
 import arcpy
