@@ -78,6 +78,7 @@ def calculate_affected_indexes_layer(AOI,index_polygon):
         bundle_polygon_each_level = "in_memory/bundle_index_polygon_each_level"
         timeStamp = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
         bundle_index_polygons = 'intermediate_indexes_' + str(timeStamp) + '.shp'
+        arcpy.AddMessage(bundle_index_polygons + " Created ! Do not delete it whiling the tool is running.")
         AOI_lyr = arcpy.MakeFeatureLayer_management(AOI, "AOI_lyr_"+ str(timeStamp))
         index_polygon_lyr = arcpy.MakeFeatureLayer_management(index_polygon, "index_lyr_" + str(timeStamp))
 
